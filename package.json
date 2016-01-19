@@ -4,7 +4,7 @@
   "description": "Mastering ReactJS - Udemy",
   "main": "index.js",
   "scripts": {
-    "build": "mkdir -p public && browserify src/main.js -t [ babelify --presets [react es2015] ] --outfile public/bundle.js",
+    "build": "mkdir -p public && browserify src/main.js -t [ babelify --presets [react es2015] ] --outfile public/bundle.js && node-sass --output-style compressed styles/main.scss public/main.css",
     "test": "mocha"
   },
   "author": "Sudaraka Wijesinghe <sudaraka@sudaraka.org> (https://sudaraka.org/)",
@@ -17,6 +17,7 @@
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0",
-    "browserify": "^13.0.0"
+    "browserify": "^13.0.0",
+    "node-sass": "^3.4.2"
   }
 }
