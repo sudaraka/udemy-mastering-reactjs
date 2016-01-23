@@ -17,6 +17,10 @@ class OrderRow extends React.Component {
       <td className='status'>{toTitleCase(order.get('orderStatus'))}</td>
     </tr>;
   }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.order !== this.props.order;
+  }
 }
 
 export default OrderRow;

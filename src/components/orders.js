@@ -38,6 +38,10 @@ class Orders extends React.Component {
     OrderStore.unlisten(this.onChange);
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState !== this.state;
+  }
+
   onChange(state) {
     this.setState(state);
   }
