@@ -2,7 +2,8 @@ import React from 'react';
 import PageHeader from './page-header';
 import OrdersTable from './orders/orders-table.js';
 import { toTitleCase } from '../lib/formatters';
-import ORDERS_DATA from '../data/orders';
+import OrderStore from '../stores/orders-stores';
+import OrderActions from '../actions/orders-actions';
 
 const STATUSES = ['all', 'open', 'shipped'];
 
@@ -10,7 +11,22 @@ class Orders extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { 'selectedStatus': 'all' };
+    this.onChange = this.onChange.bind(this);
+    this.state = OrderStore.getState();
+    this.state.selectedStatus = 'all';
+  }
+
+  componentDidMount() {
+    OrderStore.listen(this.onChange);
+    OrderActions.fetchOrders();
+  }
+
+  componentWillUnmount() {
+    OrderStore.unlisten(this.onChange);
+  }
+
+  onChange(state) {
+    this.setState(state);
   }
 
   render() {
@@ -26,10 +42,10 @@ class Orders extends React.Component {
       });
 
     let
-      orders = ORDERS_DATA;
+      orders = this.state.orders;
 
     if('all' !== selectedStatus) {
-      orders = ORDERS_DATA.filter((order) => {
+      orders = orders.filter((order) => {
         return order.orderStatus === selectedStatus;
       });
     }
