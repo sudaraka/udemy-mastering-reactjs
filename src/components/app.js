@@ -26,7 +26,7 @@ class App extends React.Component {
     return <div className='app'>
       <MainHeader />
       <Page>
-        <Orders />
+        {this.props.children}
       </Page>
     </div>;
   }

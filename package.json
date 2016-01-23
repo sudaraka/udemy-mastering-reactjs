@@ -23,7 +23,8 @@
     "moment": "^2.11.1",
     "numeral": "^1.5.3",
     "react": "^0.14.6",
-    "react-dom": "^0.14.6"
+    "react-dom": "^0.14.6",
+    "react-router": "^2.0.0-rc5"
   },
   "devDependencies": {
     "babel": "^6.3.26",
