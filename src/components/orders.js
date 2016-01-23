@@ -13,7 +13,6 @@ class Orders extends React.Component {
 
     this.onChange = this.onChange.bind(this);
     this.state = OrderStore.getState();
-    this.state.selectedStatus = 'all';
   }
 
   componentDidMount() {
@@ -31,7 +30,7 @@ class Orders extends React.Component {
 
   render() {
     const
-      { selectedStatus } = this.state,
+      { selectedStatus, amountFilter } = this.state,
 
       statuses = STATUSES.map((status, i) => {
         const className = status === selectedStatus ? 'selected status' : 'status';
@@ -50,17 +49,29 @@ class Orders extends React.Component {
       });
     }
 
+    if(amountFilter) {
+      orders = orders.filter(o => o.amount === parseFloat(amountFilter));
+    }
+
     return <div className='orders'>
       <PageHeader>
         <h1>Orders</h1>
         <nav className='status-nav'>{statuses}</nav>
+        <form className='amount-filter'>
+          <input type='text' placeholder='Filter by amount' value={amountFilter}
+            onChange={this.handleAmountFilterChange.bind(this)} />
+        </form>
       </PageHeader>
       <OrdersTable orders={orders} />
     </div>;
   }
 
   handleStatusClick(status) {
-    this.setState({ 'selectedStatus': status });
+    OrderActions.updateSelectedStatus(status);
+  }
+
+  handleAmountFilterChange(e) {
+    OrderActions.updateAmountFilter(e.currentTarget.value || null);
   }
 }
 
