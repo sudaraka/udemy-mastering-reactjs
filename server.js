@@ -22,6 +22,10 @@ app.get('/orders.json', (req, res) => {
   res.sendFile(`${__dirname}/data/orders.json`);
 });
 
+app.get('/sales-stats.json', (req, res) => {
+  res.sendFile(`${__dirname}/data/sales-stats.json`);
+});
+
 
 const
   server = app.listen(5000, () => {
